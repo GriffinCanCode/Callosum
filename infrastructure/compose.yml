@@ -1,0 +1,121 @@
+name: callosum
+
+x-common: &common
+  networks:
+    - callosum
+
+services:
+  # Core Services
+  ai-engine:
+    build:
+      context: ./backend/ai-engine
+      dockerfile: infrastructure/Dockerfile
+      args:
+        BUILDKIT_INLINE_CACHE: 1
+      cache_from:
+        - callosum/ai-engine:latest
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=development
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/callosum
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ./backend/ai-engine:/app
+    <<: *common
+
+  dsl-parser:
+    build:
+      context: ./backend/dsl-parser
+      dockerfile: infrastructure/Dockerfile
+      args:
+        BUILDKIT_INLINE_CACHE: 1
+      cache_from:
+        - callosum/dsl-parser:latest
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./backend/dsl-parser:/app
+    <<: *common
+
+  graph-engine:
+    build:
+      context: ./backend/graph-engine
+      dockerfile: infrastructure/Dockerfile
+      args:
+        BUILDKIT_INLINE_CACHE: 1
+      cache_from:
+        - callosum/graph-engine:latest
+    ports:
+      - "8002:8002"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/callosum
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ./backend/graph-engine:/app
+    <<: *common
+
+  event-processor:
+    build:
+      context: ./backend/event-processor
+      dockerfile: infrastructure/Dockerfile
+      args:
+        BUILDKIT_INLINE_CACHE: 1
+      cache_from:
+        - callosum/event-processor:latest
+    ports:
+      - "4000:4000"
+    environment:
+      - DATABASE_URL=ecto://postgres:postgres@postgres:5432/callosum
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ./backend/event-processor:/app
+    <<: *common
+
+  # Infrastructure
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_DB=callosum
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./infrastructure/scripts/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    <<: *common
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    <<: *common
+
+  # Development Tools
+  adminer:
+    image: adminer:latest
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    <<: *common
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  callosum:
+    driver: bridge

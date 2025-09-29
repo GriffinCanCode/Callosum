@@ -1,0 +1,6 @@
+personality "Test Personality" {
+  traits {
+    creativity: 0.8;
+    analytical: 0.6
+  }
+}

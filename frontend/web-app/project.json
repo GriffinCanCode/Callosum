@@ -1,0 +1,36 @@
+{
+  "name": "web-app",
+  "projectType": "application",
+  "sourceRoot": "frontend/web-app/src",
+  "targets": {
+    "serve": {
+      "executor": "@nx/workspace:run-commands",
+      "options": {
+        "command": "npm run dev",
+        "cwd": "frontend/web-app"
+      }
+    },
+    "build": {
+      "executor": "@nx/workspace:run-commands",
+      "options": {
+        "command": "npm run build",
+        "cwd": "frontend/web-app"
+      }
+    },
+    "test": {
+      "executor": "@nx/workspace:run-commands",
+      "options": {
+        "command": "npm test",
+        "cwd": "frontend/web-app"
+      }
+    },
+    "lint": {
+      "executor": "@nx/workspace:run-commands",
+      "options": {
+        "command": "npm run lint",
+        "cwd": "frontend/web-app"
+      }
+    }
+  },
+  "tags": ["frontend", "typescript", "web", "ui"]
+}

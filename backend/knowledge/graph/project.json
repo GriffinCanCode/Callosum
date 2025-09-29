@@ -1,0 +1,29 @@
+{
+  "name": "knowledge-graph",
+  "projectType": "application",
+  "sourceRoot": "backend/knowledge/graph/src",
+  "targets": {
+    "serve": {
+      "executor": "@nx/workspace:run-commands",
+      "options": {
+        "command": "go run main.go",
+        "cwd": "backend/knowledge/graph"
+      }
+    },
+    "build": {
+      "executor": "@nx/workspace:run-commands",
+      "options": {
+        "command": "go build -o bin/knowledge-graph main.go",
+        "cwd": "backend/knowledge/graph"
+      }
+    },
+    "test": {
+      "executor": "@nx/workspace:run-commands",
+      "options": {
+        "command": "go test ./...",
+        "cwd": "backend/knowledge/graph"
+      }
+    }
+  },
+  "tags": ["backend", "go", "graph", "api"]
+}

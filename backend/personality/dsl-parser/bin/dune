@@ -1,0 +1,4 @@
+(executable
+ (public_name dsl-parser)
+ (name main)
+ (libraries dsl_parser core stdio))

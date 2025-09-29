@@ -1,0 +1,35 @@
+(lang dune 3.0)
+
+(name dsl-parser)
+
+(version 0.1.0)
+
+(package
+ (name dsl-parser)
+ (depends 
+  ocaml
+  dune
+  menhir
+  core
+  (ppx_deriving (>= "5.0"))
+  base
+  stdio
+  fmt
+  logs
+  (alcotest :with-test)
+  (ocaml-lsp-server :dev)
+  (merlin :dev))
+ (synopsis "Personality DSL Parser and Compiler")
+ (description "OCaml-based parser and compiler for the Callosum personality DSL"))
+
+(generate_opam_files true)
+
+(source (github your-username/callosum))
+
+(authors "Callosum Team")
+
+(maintainers "your-email@example.com")
+
+(license MIT)
+
+(using menhir 2.1)

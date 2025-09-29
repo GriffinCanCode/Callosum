@@ -1,0 +1,87 @@
+# Dependencies
+node_modules/
+*/node_modules/
+.nx
+
+# Build outputs
+dist/
+build/
+target/
+_build/
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Language-specific
+# Rust
+Cargo.lock
+target/
+
+# OCaml
+_build/
+*.install
+*.cmi
+*.cmo
+*.cmx
+*.o
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+
+# Go
+*.test
+*.prof
+go.sum
+
+# Elixir
+_build/
+deps/
+*.beam
+erl_crash.dump
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Nx
+.nx/cache
+.nx/workspace-data
+
+# Logs
+*.log
+logs/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Docker
+.docker/
+infrastructure/tmp/
+infrastructure/build-errors.log
+**/infrastructure/tmp/
+**/infrastructure/build-errors.log
+
+package-lock.json
+
+# Database
+*.db
+*.sqlite

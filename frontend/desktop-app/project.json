@@ -1,0 +1,55 @@
+{
+  "name": "desktop-app",
+  "projectType": "application",
+  "sourceRoot": "frontend/desktop-app/src",
+  "targets": {
+    "serve": {
+      "executor": "@nx/workspace:run-commands",
+      "options": {
+        "command": "cargo tauri dev",
+        "cwd": "frontend/desktop-app"
+      },
+      "configurations": {
+        "production": {
+          "command": "cargo tauri dev --release"
+        }
+      }
+    },
+    "build": {
+      "executor": "@nx/workspace:run-commands",
+      "options": {
+        "command": "cargo tauri build",
+        "cwd": "frontend/desktop-app"
+      },
+      "outputs": ["{projectRoot}/src-tauri/target"],
+      "configurations": {
+        "production": {
+          "command": "cargo tauri build --release"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nx/workspace:run-commands",
+      "options": {
+        "command": "cargo test",
+        "cwd": "frontend/desktop-app"
+      },
+      "outputs": []
+    },
+    "lint": {
+      "executor": "@nx/workspace:run-commands",
+      "options": {
+        "command": "cargo clippy -- -D warnings",
+        "cwd": "frontend/desktop-app"
+      }
+    },
+    "format": {
+      "executor": "@nx/workspace:run-commands",
+      "options": {
+        "command": "cargo fmt --check",
+        "cwd": "frontend/desktop-app"
+      }
+    }
+  },
+  "tags": ["frontend", "rust", "tauri", "desktop"]
+}

@@ -1,0 +1,18 @@
+(library
+ (public_name dsl-parser)
+ (name dsl_parser)
+ (libraries core base stdio fmt logs menhirLib)
+ (preprocess (pps ppx_deriving.show ppx_deriving.eq))
+ (modules ast lexer parser compiler types semantic optimize))
+
+(rule
+ (targets parser.ml parser.mli)
+ (deps parser.mly)
+ (action
+  (run menhir --explain --table %{deps})))
+
+(rule
+ (targets lexer.ml)
+ (deps lexer.mll)
+ (action
+  (run ocamllex %{deps})))

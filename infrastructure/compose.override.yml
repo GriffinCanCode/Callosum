@@ -1,0 +1,26 @@
+# Development overrides for hot reloading and debugging
+services:
+  ai-engine:
+    command: python3 -m uvicorn main:app --reload --host 0.0.0.0 --port 8000
+    environment:
+      - DEBUG=1
+      - LOG_LEVEL=debug
+    
+  dsl-parser:
+    command: dune exec -- ./main.exe --watch
+    environment:
+      - OCAML_DEBUG=1
+    
+  graph-engine:
+    command: air -c infrastructure/.air.toml
+    environment:
+      - GIN_MODE=debug
+      - GO_ENV=development
+    
+  event-processor:
+    command: mix phx.server
+    environment:
+      - MIX_ENV=dev
+      - PHX_SERVER=true
+    stdin_open: true
+    tty: true
