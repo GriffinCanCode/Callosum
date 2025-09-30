@@ -1,0 +1,10 @@
+personality: "Multi Domain Test"
+
+knowledge:
+  domain education:
+    pedagogy: expert
+    learning_psychology: advanced
+    
+  domain communication:
+    active_listening: expert
+    empathy: advanced

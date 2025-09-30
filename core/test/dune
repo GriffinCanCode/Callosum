@@ -1,0 +1,12 @@
+(test
+ (name test_parser)
+ (libraries dsl_parser alcotest core))
+
+(executable
+ (public_name test_parse)
+ (name test_parse)
+ (libraries dsl_parser core))
+
+(rule
+ (alias runtest)
+ (action (run ./test_parser.exe)))

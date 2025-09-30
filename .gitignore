@@ -1,7 +1,4 @@
-# Dependencies
-node_modules/
-*/node_modules/
-.nx
+# Build outputs (all languages)
 
 # Build outputs
 dist/
@@ -24,7 +21,23 @@ _build/
 *.cmi
 *.cmo
 *.cmx
+*.cmt
+*.cmti
+*.cma
+*.cmxa
+*.cmxs
+*.a
 *.o
+**/_build/
+**/dune-package
+**/META.*
+# OCaml preprocessed files
+*.pp.ml
+*.pp.mli
+# OCaml generated files
+*.ml-gen
+# Dune files
+.merlin
 
 # Python
 __pycache__/
@@ -38,19 +51,22 @@ venv/
 pip-log.txt
 pip-delete-this-directory.txt
 .pytest_cache/
+# Python packaging and distribution
+*.egg-info/
+.eggs/
+build/
+dist/
+*.egg
+*.whl
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+# Jupyter Notebook
+.ipynb_checkpoints
 
-# Go
-*.test
-*.prof
-go.sum
+# Editor and IDE
 
-# Elixir
-_build/
-deps/
-*.beam
-erl_crash.dump
-
-# IDE
 .vscode/
 .idea/
 *.swp
@@ -59,10 +75,6 @@ erl_crash.dump
 # OS
 .DS_Store
 Thumbs.db
-
-# Nx
-.nx/cache
-.nx/workspace-data
 
 # Logs
 *.log
@@ -80,8 +92,32 @@ infrastructure/build-errors.log
 **/infrastructure/tmp/
 **/infrastructure/build-errors.log
 
+# Package managers
 package-lock.json
+yarn.lock
 
 # Database
 *.db
 *.sqlite
+
+# Examples/temporary files
+*.tmp
+*.temp
+*~
+.#*
+# Project-specific temporary files
+temp_*.colo
+**/temp_*.colo
+# Test artifacts and build outputs with timestamps
+**/PV7CXPK1/
+**/WZFTQNHR/
+**/latest
+
+# Editor backups
+*.bak
+*.backup
+
+# Test outputs and generated files
+test_output/
+*.output
+*.generated

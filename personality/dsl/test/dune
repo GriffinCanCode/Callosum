@@ -1,7 +1,0 @@
-(test
- (name test_parser)
- (libraries dsl_parser alcotest core))
-
-(rule
- (alias runtest)
- (action (run ./test_parser.exe)))

@@ -1,0 +1,25 @@
+# Include documentation
+include README_PYTHON.md
+include LICENSE
+include QUICK_START.md
+
+# Include package data
+recursive-include callosum_dsl/bin *
+
+# Include test files
+recursive-include tests *.py
+
+# Include examples if any
+recursive-include examples *.py *.colo
+
+# Exclude development files
+exclude *.pyc
+exclude .gitignore
+exclude .DS_Store
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+
+# Exclude build artifacts
+exclude build/
+exclude dist/
+exclude *.egg-info/
