@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "callosum-dsl"
 version = "0.2.0"
 description = "Python wrapper for Callosum Personality DSL - Create rich, dynamic AI personalities"
-readme = "../docs/README_PYTHON.md"
+readme = "../README.md"
 requires-python = ">=3.8"
 license = {text = "MIT"}
 authors = [
