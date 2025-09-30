@@ -332,7 +332,13 @@ class Callosum:
             
         # Search in common development locations
         search_paths = [
-            # In the project (for development)
+            # In the project (for development) - new structure
+            "core/_build/default/bin/main.exe",
+            "core/_build/install/default/bin/dsl-parser",
+            # Try from parent directory (when running from python/)
+            "../core/_build/default/bin/main.exe", 
+            "../core/_build/install/default/bin/dsl-parser",
+            # Legacy paths for backward compatibility
             "personality/dsl/_build/default/bin/main.exe",
             "_build/default/bin/main.exe",
             # Installed system-wide
@@ -340,8 +346,9 @@ class Callosum:
         ]
         
         for path in search_paths:
-            if os.path.exists(path):
-                return os.path.abspath(path)
+            abs_path = os.path.abspath(path)
+            if os.path.exists(abs_path):
+                return abs_path
             
             # Check if it's in PATH
             if path == "dsl-parser":
