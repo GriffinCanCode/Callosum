@@ -1,3 +1,5 @@
+![Callosum Project](assets/callosum-project.png)
+
 # Callosum Personality DSL Compiler
 
 [![PyPI version](https://badge.fury.io/py/callosum-dsl.svg)](https://badge.fury.io/py/callosum-dsl)
