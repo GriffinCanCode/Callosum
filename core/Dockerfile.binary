@@ -1,0 +1,31 @@
+# syntax=docker/dockerfile:1
+#
+# Builds the dsl-parser binary and exports it in a minimal scratch image.
+# Consumed by uniqpath via: COPY --from=ghcr.io/griffincancode/callosum-dsl-parser:latest /dsl-parser /app/bin/dsl-parser
+#
+# Usage:
+#   docker build -f Dockerfile.binary -t callosum-dsl-parser .
+#   docker cp "$(docker create callosum-dsl-parser)":/dsl-parser ./dsl-parser
+
+ARG OCAML_VERSION=5.3
+
+FROM ocaml/opam:debian-12-ocaml-${OCAML_VERSION} AS build
+
+USER root
+RUN apt-get update && apt-get install -y --no-install-recommends git ca-certificates && rm -rf /var/lib/apt/lists/*
+USER opam
+
+COPY --chown=opam:opam . /home/opam/callosum/core
+WORKDIR /home/opam/callosum/core
+
+RUN opam install . --deps-only --yes --quiet 2>&1 && \
+    opam exec -- dune build bin/main.exe 2>&1
+
+RUN test -x _build/default/bin/main.exe && \
+    cp _build/default/bin/main.exe /tmp/dsl-parser && \
+    chmod 755 /tmp/dsl-parser && \
+    strip /tmp/dsl-parser
+
+# Scratch image with just the binary (~5 MB)
+FROM scratch
+COPY --from=build /tmp/dsl-parser /dsl-parser
